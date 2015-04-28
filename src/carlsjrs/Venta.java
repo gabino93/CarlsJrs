@@ -26,16 +26,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Venta extends javax.swing.JFrame {
 
-   Conexion conexion;
-   Connection cn;
+  Connection cn;
+    Conexion obj;
+
    DefaultTableModel model;
   
     
     public Venta() {
         initComponents();
         
-        conexion = new Conexion();
-        cn = conexion.conectar();
         actualizaTabla();
         
         model = new DefaultTableModel();
@@ -285,8 +284,8 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
       public void actualizaTabla(){
-        conexion = new Conexion();
-        cn = conexion.conectar();
+           obj = new Conexion();
+           cn =obj.conectar();
         
         
         //declaramos la consulta

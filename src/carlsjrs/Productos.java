@@ -28,7 +28,7 @@ public class Productos extends javax.swing.JFrame {
     
     public Productos() {
         initComponents();
-        actualizarTabla();
+        actualizaTabla();
         
     }
 
@@ -49,7 +49,7 @@ public class Productos extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtFolio = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,19 +89,14 @@ public class Productos extends javax.swing.JFrame {
 
         jLabel4.setText("Folio:");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/carlsimage.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,8 +104,8 @@ public class Productos extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGuardar)
                                 .addGap(55, 55, 55)
@@ -128,7 +123,7 @@ public class Productos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +132,7 @@ public class Productos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -150,7 +145,7 @@ public class Productos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtFolio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,9 +158,9 @@ public class Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    public void actualizarTabla(){
+    public void actualizaTabla(){
          obj = new Conexion();
-        cn =obj.conectar();
+         cn =obj.conectar();
         
         
         
@@ -241,7 +236,7 @@ public class Productos extends javax.swing.JFrame {
                 
                 
             } catch (SQLException ex) {
-                Logger.getLogger(CarlsJrs.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
             }
         
         
@@ -271,41 +266,11 @@ public class Productos extends javax.swing.JFrame {
                 
                     JOptionPane.showMessageDialog(rootPane, "El Producto se ha registrado.");
             } catch (SQLException ex) {
-                Logger.getLogger(CarlsJrs.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            actualizarTabla();
+            actualizaTabla();
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String ID = txtID.getText();
-        
-        if(ID.isEmpty()){
-            JOptionPane.showMessageDialog(this, " Ingrese un ID ");
-        }else{
-             String sql ="SELECT * FROM producto WHERE id=?";
-        
-            try {
-                PreparedStatement consulta = cn.prepareStatement(sql);
-                consulta.setString(1, ID);
-                ResultSet rs = consulta.executeQuery();
-                if(rs.next()){
-                    txtNombre.setText(rs.getString("nombre_producto"));
-                    txtPrecio.setText(rs.getString("precio"));
-                    txtFolio.setText(rs.getString("existencia"));
-                    
-                }
-                
-                
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(CarlsJrs.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
-            
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     /**
@@ -349,11 +314,11 @@ public class Productos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableDatos;
     private javax.swing.JTextField txtFolio;
